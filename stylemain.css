@@ -1,0 +1,231 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e5e5e5;
+}
+#Block{
+  position: absolute;
+  top: 0vh;
+  left: 0vw;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 3;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    background-image: linear-gradient(140deg, #2a2a2a 0%, #7a7a7a 50%, #616161 75%);
+
+  }
+  
+  li {
+    float: left;
+  }
+  #TableHolder{
+    display: none;
+  }
+  
+  li:last-child {
+    border-right: none;
+  }
+  
+  li a {
+    display: block;
+    color: rgb(232, 232, 232);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  #lockicon:hover {
+    cursor: pointer;
+  }
+
+  li a:hover:not(.active) {
+    background-color: #111;
+  }
+  
+  .active {
+    background-color: #04AA6D;
+  }
+
+  #header-section .header {
+    text-align: center;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    padding-block: 10px;
+    background-image: linear-gradient(140deg, #ffffff 0%, #a476dd 50%, #9b50eb 75%);
+}
+  #header-section{
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+
+  }
+  #header-section .header h1 {
+    font-size: 30px;
+  }
+  #header-section .header img {
+    width: 150px;
+  }
+.cardSolider{
+  
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width:300px ;
+    margin-block: 15px;
+    margin-inline: 15px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+.cardSolider img {
+  width: 200px;
+  /* margin-top: 10px; */
+  margin-bottom: -15px;
+}
+.cardSolider p,.cardSolider a {
+  margin: 0;
+  margin-block: 5px;
+  font-size: 18px;
+
+}
+.cardSolider .name{
+  font-size: 22px;
+  color: darkblue;
+}
+.cardSolider .personNumber{
+  font-size: 24px;
+  color: darkblue;
+}
+.cardSolider .contentCard {
+  margin-top: -15px;
+  text-align: center;
+  height: 175px;
+}
+.cardSolider .iconVe {
+  width: 55px;
+  position: relative;
+  margin-top: -39px;
+  top: -162px;
+  left: -123px;
+}
+.cardSolider .buttons {
+  margin-block: 36px;
+}
+
+.cardSolider .buttons button{
+  width: 100px;
+}
+
+
+
+  #searchBar{
+    width: 19vw;
+    text-align: right;
+  }
+  li .btn {
+    margin-top: 5px;
+    margin-inline: 8px;
+}
+
+#phMain {
+  display: none;
+}
+.wrap-G {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 100%;
+  min-height: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+
+#TableHolder .btn {
+  margin-block: 15px;
+  margin-left: 15px;
+}
+
+.About-wrapr .about-text {
+  text-align: center;
+  font-size: 34px;
+}
+.About-wrapr{
+  margin-inline: 10px;
+}
+#About {
+  margin-top: 25px;
+  border: 1px black solid;
+  margin-inline: 10px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  background-image: linear-gradient(#e6e6e6, rgb(250, 249, 215));
+  border-radius: 12px;
+  display: none;
+
+}
+#aboutbtn{
+  color: rgb(36, 41, 122);
+}
+#aboutbtn:hover{
+  color: rgb(226, 198, 69)
+}
+
+
+/* DATA TABLE  */
+table.dataTable>thead>tr>th, table.dataTable>thead>tr>td {
+  background: #474747;
+  background-image: linear-gradient(#474747, rgb(213, 165, 246));
+
+  color: blanchedalmond;
+  padding: 10px;
+  font-size: 18px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+  color: inherit;
+  padding-inline: 15px;
+  font-size: 18px;
+  color: #751919;
+  font-weight: 900;
+}
+
+ .dataTables_wrapper .dataTables_info:hover {
+  background: linear-gradient(to bottom, #585858 0%, #111 100%);
+  padding-block: 10px;
+  border: 1px rgb(243, 236, 224) solid;
+  color: #fdfbe4;
+  cursor: pointer;
+
+}
+
+table.dataTable.row-border>tbody>tr>th, table.dataTable.row-border>tbody>tr>td, table.dataTable.display>tbody>tr>th, table.dataTable.display>tbody>tr>td {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  text-align: center;
+}
+table.dataTable>tfoot>tr>th, table.dataTable>tfoot>tr>td {
+  padding: 10px 10px 6px 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  text-align: center;
+  background: #474747;
+  background-image: linear-gradient(#474747, rgb(213, 165, 246));
+  font-size: 18px;
+
+  color: blanchedalmond;
+}

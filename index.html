@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8116 Main Page</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+    crossorigin="anonymous"></script>
+    
+
+<!-- FIREBASE -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+<script
+    src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+<!--**** Remember to add the database script ***-->
+<script
+    src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+<!-- FIREBASE -->
+
+<!-- DATA TABLE -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<!-- DATA TABLE -->
+
+<script src="./js/config.js"></script>
+<script src="./js/initData.js"></script>
+<script src='https://giladmeirson.github.io/EZ/lib/EZ.js'></script>
+<script src="./js/start.js"></script>
+<link rel="stylesheet" href="./stylemain.css">
+</head>
+
+<body onload="init()">
+    <div id="Block">
+        <div style="text-align: center;">
+            <p style="font-size: 70px; color: darkgreen;" id="passL">הכנס סיסמא</p>
+            <input  type="password" name="" id="passIN">
+        </div>
+
+    </div>
+    <section id="header-section">
+        <header class="header">
+            <h1>ממשק עבודה פלוגת מסייעת 8116</h1>
+            <img src="./assets/IMG_0614-removebg-preview.png" alt="">
+        </header>
+        <ul>
+            <!-- <li><a class="active" href="#home">Home</a></li> -->
+            <!-- <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li> -->
+            <li style="float:right"><a onclick="aboutToggle(true)" href="#about">About</a></li>
+            <li style="float:right;"><input  id="searchBar" type="search" placeholder="..חפש חייל"></li>
+            <li style="float:right;"><button id="searchBarBTN" onclick="changeInput()" class="btn">חפש</button></li>
+            <li style="float:right;"><button id="tableBTN" onclick="SwitchToTable()"  class="btn">הצג כטבלה</button></li>
+            <li onclick="moveTo('./RegisterForm.html')" style="cursor: pointer; margin-top: 10px; margin-left: 50px;"><img style="width: 30px; height: 30px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;" 
+                src="./assets/plus.png" alt=""></li>
+          </ul>
+    </section>
+<div id="phMain">
+    <section class="wrap-G" id="MainShow-section">
+
+
+        <!-- <div class="cardSolider">
+            <img  src="./assets/solider-removebg-preview.png" alt="">
+            <img class="iconVe" src="./assets/vegan.png" alt="">
+            <div class="contentCard">
+                <p class="personNumber">1111111</p>
+                <p class="name">יוסי יוסי יוסי</p>
+                <a href="">מייל</a>
+                <p>טלופון</p>
+
+                <P>ימני או שמאלי</P>
+                <p>נשק</p>
+                <p>עובדה</p>
+                <p>השכלה</p>
+            </div>
+            <div class="buttons">
+                <button class="btn-X-effect">מחק</button>
+                <button class="btn-ok-effect">עדכן שדה</button>
+            </div>
+
+        </div>
+
+
+        <div class="cardSolider">
+            <img  src="./assets/solider-removebg-preview.png" alt="">
+            <img class="iconVe" src="./assets/vegan.png" alt="">
+            <div class="contentCard">
+                <p class="personNumber">1111111</p>
+                <p class="name">יוסי יוסי יוסי</p>
+                <a href="">מייל</a>
+                <p>טלופון</p>
+
+                <P>ימני או שמאלי</P>
+                <p>נשק</p>
+                <p>עובדה</p>
+                <p>השכלה</p>
+            </div>
+            <div class="buttons">
+                <button class="btn-X-effect">מחק</button>
+                <button class="btn-ok-effect">עדכן שדה</button>
+            </div>
+
+        </div>
+
+        <div class="cardSolider">
+            <img  src="./assets/solider-removebg-preview.png" alt="">
+            <img class="iconVe" src="./assets/vegan.png" alt="">
+            <div class="contentCard">
+                <p class="personNumber">1111111</p>
+                <p class="name">יוסי יוסי יוסי</p>
+                <a href="">מייל</a>
+                <p>טלופון</p>
+
+                <P>ימני או שמאלי</P>
+                <p>נשק</p>
+                <p>עובדה</p>
+                <p>השכלה</p>
+            </div>
+            <div class="buttons">
+                <button class="btn-X-effect">מחק</button>
+                <button class="btn-ok-effect">עדכן שדה</button>
+            </div>
+
+        </div>
+        <div class="cardSolider">
+            <img  src="./assets/solider-removebg-preview.png" alt="">
+            <div class="contentCard">
+                <p class="personNumber">1111111</p>
+                <p class="name">יוסי יוסי יוסי</p>
+                <a href="">מייל</a>
+                <p>טלופון</p>
+
+                <P>ימני או שמאלי</P>
+                <p>נשק</p>
+                <p>עובדה</p>
+                <p>השכלה</p>
+            </div>
+            <div class="buttons">
+                <button class="btn-X-effect">מחק</button>
+                <button class="btn-ok-effect">עדכן שדה</button>
+            </div>
+
+        </div> -->
+
+    </section>
+    <section id="TableHolder">
+        <button onclick="SwitchtoCard()" class="btn">חזור לתצוגת כרטיסים</button>
+        <div id="DT-PH">
+            <table id="DB-Table" class="display" style="width:100%">
+            </table>
+        </div>
+    </section>
+
+    <section id="About">
+        <div class="About-wrapr wrap-C">
+            <p class="about-text">This system was built by Gilad Meirson - <br>for any help or request you can contact the email by <a href="mailto:Gilad.meirson@gmail.com">CLICK HERE</a></p>
+            <p class="about-text">Or you can use the following link <br> to contact the website of the owners of the system by <a href="https://giladmeirson.github.io/Gilad_Meirson_website/">CLICK HERE</a></p>
+            <p id="aboutbtn" onclick="aboutToggle(false)" style="font-size: 38px;  cursor: pointer;" class="about-text">- Back -</p>
+        </div>
+
+    </section>
+</div>
+</body>
+</html> 

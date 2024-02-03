@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8116 Register</title>
+<!-- FIREBASE -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+<script
+    src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+<!--**** Remember to add the database script ***-->
+<script
+    src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+<!-- FIREBASE -->
+
+
+
+
+<script src="./js/config.js"></script>
+<script src='https://giladmeirson.github.io/EZ/lib/EZ.js'></script>
+<script src="./js/Register.js"></script>
+<link rel="stylesheet" href="./stylemain.css">
+<link rel="stylesheet" href="./Register.css">
+</head>
+<body onload="init()">
+    <section id="header-section">
+        <header class="header">
+            <h1 id="headerTitle">טופס הרשמה לפלוגה</h1>
+            <img src="./assets/IMG_0614-removebg-preview.png" alt="">
+        </header>
+        <ul>
+            <!-- <li><a class="active" href="#home">Home</a></li> -->
+            <!-- <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li> -->
+            <li style="float:right"><a onclick="aboutToggle(true)" href="#about">About</a></li>
+            <li style="margin-left: 50px; " ><a style="font-size: 22px;" href="./index.html">חזור</a></li>
+
+          </ul>
+    </section>
+
+
+    <section id="Form-Section">
+        <div id="div-PH">
+            <div class="wrap-R"  id="Line1">
+                <div id="personalDetails">
+                    <h2>פרטים אישיים</h2>
+                    <div class="wrap-R">
+                        <input id="Sol-Name" type="text" placeholder="..שם החייל">
+                        <img onclick="UnlockThis('Sol-Name')" id="lockicon" style="width: 30px; height: 30px; margin-top: 8px;" src="./assets/padlock.png" alt="">
+
+                    </div>
+
+                        <div class="wrap-R">
+                            <input id="Sol-personalNumber" type="text" placeholder="..מספר אישי">
+                            <img onclick="UnlockThis('Sol-personalNumber')" id="lockicon" style="width: 30px; height: 30px; margin-top: 8px;" src="./assets/padlock.png" alt="">
+                        </div>
+                        <input  id="Sol-mail" type="email" placeholder="..אימייל">
+                        <input  type="tel" name="Sol-phone" id="Sol-phone" placeholder="..מספר נייד">
+                    <input id="Sol-Job" type="text" placeholder="..עבודה באזרחות">
+                    <input id="Sol-Education" type="text" placeholder="..השכלה">
+                </div>
+    
+                <div id="sizeDetails">
+    
+                    <h2>מידות והעדפות</h2>
+                        <select name="Sol-uniformSize" id="Sol-uniformSize">
+                            <option value="-1">מידת המדים</option>
+                            <option value="ק">ק</option>
+                            <option value="ב">ב</option>
+                            <option value="ג">ג</option>
+                            <option value="מ">מ</option>
+                            <option value="ממ">ממ</option>
+            
+                        </select>
+
+                    <label id="shoeSize" for="Sol-shoeSize">מידת נעליים</label>
+                        <input value="42" type="number" name="Sol-shoeSize" id="Sol-shoeSize">
+    
+    
+                    <div id="isRight-div">
+                        <p class="explnation">כיוון הנשק</p>
+                        <label for="isRight">ימני</label>
+                        <input type="radio" name="isRight" id="isLeft">
+                        <label for="isRight">שמאלי</label>
+                        <input type="radio" name="isRight" id="isRight">
+
+                    </div>
+    
+                    <p id="Foodexplnation" class="explnation">העדפה לאוכל</p>
+                    <div id="Food-pref-div">
+                        <label for="foodPref">הכל</label>
+                        <input type="radio" name="foodPref" id="all">
+                        <label for="foodPref">צמחוני</label>
+                        <input type="radio" name="foodPref" id="veg">
+                        <label for="foodPref">טבעוני</label>
+                        <input type="radio" name="foodPref" id="vegy">
+        
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="weaponWraper">
+                <p class="explnation">ניתן לסמן יותר מאפשרות אחת</p>
+                <div id="weapon-div">
+                    <label for="תבור">תבור</label>
+                    <input type="checkbox" name="תבור" id="tar">
+                    <label for="מיקרו תבור">מיקרו תבור</label>
+                    <input type="checkbox" name="מיקרו תבור" id="mictar">
+                    <label for="M16">M16</label>
+                    <input type="checkbox" name="M16" id="M16">
+                    <label for="נגב">נגב</label>
+                    <input type="checkbox" name="נגב" id="negev">
+                    <label for="מטול">מטול</label>
+                    <input type="checkbox" name="מטול" id="matol">
+                    <label for="נשק צלפים">נשק צלפים</label>
+                    <input type="checkbox" name="נשק צלפים" id="sniper">
+                    <label for="מאג">מאג</label>
+                    <input type="checkbox" name="מאג" id="mag">
+                    <label for="קלע">קלע</label>
+                    <input type="checkbox" name="קלע" id="kala">
+        
+                </div>
+            </div>
+            <p style="text-align: center; margin: 0; margin-top: 45px; color: red;" class="explnation"> כל השדות הינם חובה* </p>
+            <button onclick="submitHandler()" id="SubmitForm" class="btn">שלח</button>
+        </div>
+
+
+
+    </section>
+
+    <section id="About">
+        <div class="About-wrapr wrap-C">
+            <p class="about-text">This system was built by Gilad Meirson - <br>for any help or request you can contact the email by <a href="mailto:Gilad.meirson@gmail.com">CLICK HERE</a></p>
+            <p class="about-text">Or you can use the following link <br> to contact the website of the owners of the system by <a href="https://giladmeirson.github.io/Gilad_Meirson_website/">CLICK HERE</a></p>
+            <p id="aboutbtn" onclick="aboutToggle(false)" style="font-size: 38px;  cursor: pointer;" class="about-text">- Back -</p>
+        </div>
+
+    </section>
+</body> 
+
+</html>

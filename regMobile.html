@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8116-Register</title>
+
+
+
+            <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+                <!-- FIREBASE -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script
+            src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+        <!--**** Remember to add the database script ***-->
+        <script
+            src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+        <!-- FIREBASE -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="./js/config.js"></script>
+        <script src="./js/solider.js"></script>
+        <script src="./js/regMobile.js"></script>
+        <link rel="stylesheet" href="./regMobile.css">
+</head>
+<body dir="rtl">
+    <div class="container">
+        <div class="display-center margin-top shadow color">
+            <div>
+                <h1 class="center">מסייעת 8116</h1>
+            </div>
+            <div>
+                <img style="width: 140px;" src="./assets/IMG_0614-removebg-preview.png" alt="">
+            </div>
+        </div>
+        <br><br>
+        <div class="form-group shadow">
+            <h3>פרטים אישיים:</h3>
+            <hr class="hr">
+            <label for="personalNum">מספר אישי</label>
+            <input id="personalNum" type="text" class="form-control">
+            <label for="fullName">שם מלא:</label>
+            <input id="fullName" type="text" class="form-control">
+            <label for="phone">מספר טלפון:</label>
+            <input id="phone" type="tel" class="form-control">
+            <label for="email">מייל:</label>
+            <input id="email" type="email" class="form-control">
+            <label for="job">עבודה:</label>
+            <input id="job" type="text" class="form-control">
+            <label for="birthDay">תאריך לידה:</label>
+            <input id="birthDay" type="date" class="form-control">
+            <label for="ArmyDate">תאריך גיוס:</label>
+            <input id="ArmyDate" type="date" class="form-control">
+            <label for="shoe">מידת נעליים:</label>
+            <input id="shoe" type="number" class="form-control">
+        </div>
+        <br>
+        <div class="form-group ">
+            <div class="row">
+
+                <div class="col-xs-6 center">
+                    <label for="isVeg">צמחוני?</label>
+                    <br>
+                    <input type="checkbox" name="" id="isVeg">
+                </div>
+                <div class="col-xs-6 center">
+                    <label for="isStudent">סטודנט?</label>
+                    <br>
+                    <input type="checkbox" name="" id="isStudent">
+                </div>
+
+            </div>
+
+            <div class="row margin-block ">
+
+                <div class="col-xs-6 center">
+                    <label for="uniform">מידת מדים:</label>
+                    <select class="selectIN" name="uniform" id="uniform">
+                        <option value="ק">ק</option>
+                        <option value="ב">ב</option>
+                        <option value="ג">ג</option>
+                        <option value="מ">מ</option>
+                        <option value="ממ">ממ</option>
+        
+                    </select>
+                </div>
+
+                <div class="col-xs-6 center">
+                    <label for="title">תפקיד:</label>
+                    <br>
+                    <select class="selectIN" name="title" id="title">
+                        <option value="לוחם">לוחם</option>
+                        <option value="מפקד כיתה">מפקד כיתה</option>
+                        <option value="מפקד מחלקה">מפקד מחלקה</option>
+                        <option value="מפלג">מפלג</option>
+                        <option value="סמל מחלקה">סמל מחלקה</option>
+        
+                    </select>
+                </div>
+
+            </div>
+
+
+
+
+            <div id="weaponWraper" class="margin-block shadow">
+                <h3>הסמכות:</h3>
+                <hr class="hr">
+                <p class="explnation">ניתן לסמן יותר מאפשרות אחת *</p>
+                <div class="row" id="weapon-div">
+
+                    <div class="col-xs-6">
+                        <label for="tar">תבור</label>
+                        <input type="checkbox" name="תבור" id="tar">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="mictar">מיקרו תבור</label>
+                        <input type="checkbox" name="מיקרו תבור" id="mictar">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="M16">M16</label>
+                        <input type="checkbox" name="M16" id="M16">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="negev">נגב</label>
+                        <input type="checkbox" name="נגב" id="negev">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="matol">מטול</label>
+                        <input type="checkbox" name="מטול" id="matol">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="sniper">נשק צלפים</label>
+                        <input type="checkbox" name="נשק צלפים" id="sniper">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="mag">מאג</label>
+                        <input type="checkbox" name="מאג" id="mag">
+                    </div>
+
+                    <div class="col-xs-6">
+                        <label for="kala">קלע</label>
+                        <input type="checkbox" name="קלע" id="kala">
+                    </div>
+
+
+
+
+        
+                </div>
+            </div>
+
+
+
+ 
+        </div>
+        <div class="row center margin-block">
+            <button onclick="submitHandlerMobile()" id="submit" class="btn btn-primary">שלח טופס</button>
+
+        </div>
+    </div>
+</body>
+</html>
