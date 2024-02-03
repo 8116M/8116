@@ -37,7 +37,6 @@ const suckObject = () => {
     let uniform = document.getElementById('uniform').value;
     let title = document.getElementById('title').value;
 
-    dateValidation(birthDay)
 
     let isVeg = document.getElementById('isVeg').checked;
     let isStudent = document.getElementById('isStudent').checked;

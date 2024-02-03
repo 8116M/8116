@@ -6,7 +6,9 @@ body{
 .selectIN{
     width: 25vw;
 }
-
+.round1 {
+    border-radius: 15px;
+}
 .hr {
     border: 2px #c9c9c9 solid;
     border-radius: 30%;
@@ -19,7 +21,9 @@ body{
 .margin-block{
     margin-block: 25px;
 }
-
+.padd1 {
+    padding: 10px;
+}
 .form-group label{
     font-size: 18px;
 }
