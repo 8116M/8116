@@ -7,6 +7,8 @@
 
     
 // }
+refStr = 'Miluim';
+refStr2 = 'Miluim_new'
 
 GlobalDATA=[];
 
@@ -307,3 +309,71 @@ const Save2=(value)=>{
   ref = firebase.database().ref("Miluim");
   ref.set(value);
 }
+
+
+
+
+//excel modole 
+//this function get json and create excel
+function downloadExcelFromJson(jsonData, fileName = 'output.xlsx') {
+  // Create a new workbook
+  jsonData=GlobalDATA;
+  const workbook = XLSX.utils.book_new();
+
+  try {
+    // Check if the file already exists
+    const existingWorkbook = XLSX.readFile(fileName);
+
+    // Create a new worksheet with the JSON data
+    const worksheet = XLSX.utils.json_to_sheet(jsonData);
+
+    // Append the worksheet to the existing workbook
+    const existingSheetNames = Object.keys(existingWorkbook.Sheets);
+    const sheetName = 'Sheet' + (existingSheetNames.length + 1);
+    XLSX.utils.book_append_sheet(existingWorkbook, worksheet, sheetName);
+
+    // Convert the workbook to a binary string
+    const workbookBinaryString = XLSX.write(existingWorkbook, { bookType: 'xlsx', type: 'binary' });
+
+    // Create a blob from the binary string
+    const workbookBlob = new Blob([s2ab(workbookBinaryString)], { type: 'application/octet-stream' });
+
+    // Create a download link and trigger the download
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(workbookBlob);
+    downloadLink.download = fileName;
+    downloadLink.click();
+
+    console.log(`Excel file "${fileName}" downloaded successfully.`);
+  } catch (error) {
+    // If the file doesn't exist, create a new workbook
+    const worksheet = XLSX.utils.json_to_sheet(jsonData);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Convert the workbook to a binary string
+    const workbookBinaryString = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+
+    // Create a blob from the binary string
+    const workbookBlob = new Blob([s2ab(workbookBinaryString)], { type: 'application/octet-stream' });
+
+    // Create a download link and trigger the download
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(workbookBlob);
+    downloadLink.download = fileName;
+    downloadLink.click();
+
+    console.log(`Excel file "${fileName}" created and downloaded successfully.`);
+  }
+}
+
+// Function to convert binary string to ArrayBuffer
+function s2ab(s) {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i < s.length; i++) {
+    view[i] = s.charCodeAt(i) & 0xFF;
+  }
+  return buf;
+}
+
+

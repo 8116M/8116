@@ -28,6 +28,10 @@ ul {
   #TableHolder{
     display: none;
   }
+
+  #TableHolder td {
+    font-size: 20px;
+  }
   
   li:last-child {
     border-right: none;

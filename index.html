@@ -31,8 +31,9 @@
 <!-- DATA TABLE -->
 
 <script src="./js/config.js"></script>
-<script src="./js/initData.js"></script>
+<!-- <script src="./js/initData.js"></script> -->
 <script src='https://giladmeirson.github.io/EZ/lib/EZ.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 <script src="./js/start.js"></script>
 <link rel="stylesheet" href="./stylemain.css">
 </head>
@@ -153,6 +154,7 @@
     </section>
     <section id="TableHolder">
         <button onclick="SwitchtoCard()" class="btn">חזור לתצוגת כרטיסים</button>
+        <button onclick="downloadExcelFromJson()" class="btn">לאקסל</button>
         <div id="DT-PH">
             <table id="DB-Table" class="display" style="width:100%">
             </table>
