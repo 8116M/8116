@@ -68,6 +68,7 @@ const suckObject = () => {
         
         //swal.then() --> send firebase.
         GlobalDATA.push(solider)
+        console.log(GlobalDATA);
         Save(GlobalDATA);
         Swal.fire({
             title: "ההרשמה בוצעה בהצלחה",
