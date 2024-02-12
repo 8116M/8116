@@ -1,0 +1,40 @@
+#input-mission #input-mission-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#input-mission #input-mission-form p {
+    font-size: 18px;
+}
+#input-mission #input-mission-form input {
+    text-align: center;
+    font-size: 18px;
+
+}
+#ex1{
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    background-image: linear-gradient(140deg, #ffffff 0%, #a476dd 50%, #9b50eb 75%);
+}
+
+#showtoggle{
+    display: flex;
+    flex-direction: row-reverse;
+}
+#showtoggleW {
+    display: none;
+}
+#showtoggle input {
+    width: 50%;
+}
+#input-mission button {
+    margin-block: 25px;
+}
+
+#tableHolder td {
+    font-size: 18px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+}

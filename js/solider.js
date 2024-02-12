@@ -1,5 +1,5 @@
 class Solider {
-    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala){
+    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,class1){
         this.personalNum=personalNum;
         this.fullName=fullName;
         this.phone=phone;
@@ -20,6 +20,13 @@ class Solider {
         this.mag = mag
         this.sniper = sniper
         this.kala = kala
+        this.class1 = class1;
+        this.lastM={
+            Mname:'',
+            MWeight:0,
+            TimeStamp:0,
+            Dur:0,
+        }
 
     }
     validation(){
@@ -59,6 +66,9 @@ class Solider {
         return true;
     }
 
+
+
+    
 }
 
 

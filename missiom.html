@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mission</title>
+
+<!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+crossorigin="anonymous"></script>
+
+
+<!-- FIREBASE -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+<script
+src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+<!--**** Remember to add the database script ***-->
+<script
+src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+<!-- FIREBASE -->
+
+<!-- DATA TABLE -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<!-- DATA TABLE -->
+
+
+    <script src='https://giladmeirson.github.io/EZ/lib/EZ.js'></script>
+
+
+    <link rel="stylesheet" href="./stylemain.css">
+    <link rel="stylesheet" href="./mission.css">
+
+
+
+    <script src="./js/config.js"></script>
+    <script src="./js/missin.js"></script>
+</head>
+<body onload="init()">
+    
+    <section id="header-section">
+        <header class="header">
+            <h1>הוספת משימה מסייעת 8116</h1>
+            <img src="./assets/IMG_0614-removebg-preview.png" alt="">
+        </header>
+        <ul>
+            <!-- <li><a class="active" href="#home">Home</a></li> -->
+            <!-- <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li> -->
+            <li style="float:right"><a onclick="aboutToggle(true)" href="#about">About</a></li>
+            <li style="float:right"><a href="./index.html">ראשי</a></li>
+            
+            <a href="#ex1" rel="modal:open"> <li onclick="" style="cursor: pointer; margin-top: 10px; margin-left: 50px;"><img style="width: 30px; height: 30px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;" 
+                src="./assets/plus.png" alt=""></li></a>
+          </ul>
+    </section>
+    
+
+    <section id="tableHolder">
+        <div id="DT-PH">
+            <table id="DB-Table" class="display" style="width:100%">
+            </table>
+        </div>
+    </section>
+
+
+
+
+    <!-- Modal HTML embedded directly into document -->
+    <div id="ex1" class="modal">
+        <div id="input-mission">
+            <div id="input-mission-form">
+                <p>שם המשימה</p>
+                <input type="text" name="name" id="name">
+                <p>משך המשימה בשעות</p>
+                <input type="number" name="dur" id="dur">
+                <p>תאריך של המשימה</p>
+                <input type="date" name="date" id="date">
+                <p>משקל המשימה</p>
+                <input type="number" name="weight" id="weight">
+                <p>משימה חוזרת ?</p>
+                <input onchange="ischeck(this.checked)" type="checkbox" name="repet" id="repet">
+                <div id="showtoggleW">
+                    <div id="showtoggle">
+                        <p>כל כמה ימים</p>
+                        <input type="number" name="interval" id="tinterval">
+                    </div>
+                </div>
+
+                <p>משימה רצופה?</p>
+                <input type="checkbox" name="allthetime" id="allthetime">
+                <button onclick="PostMission()" class="btn">הוסף</button>
+
+
+            </div>
+        </div>
+    </div>
+  
+
+
+</body>
+</html>

@@ -35,6 +35,8 @@ const suckObject = () => {
     let ArmyDate = document.getElementById('ArmyDate').value;
     let shoe = document.getElementById('shoe').value;
     let uniform = document.getElementById('uniform').value;
+    let class1 = document.getElementById('class1').value;
+
     let title = document.getElementById('title').value;
 
 
@@ -53,7 +55,7 @@ const suckObject = () => {
 
 
 
-    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala);
+    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,class1);
     const bool = solider.validation();
     console.log(solider);
     if (!bool) {

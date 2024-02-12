@@ -26,7 +26,7 @@ const init = ()=>{
     $('#header-section').fadeIn();
     const MODE = sessionStorage.getItem('MODE')
     if (MODE=='table') {
-      setTimeout(SwitchToTable,300) 
+      setTimeout(SwitchToTable,500) 
     }
     else {
       SwitchtoCard()
