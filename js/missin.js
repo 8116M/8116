@@ -57,6 +57,35 @@ const stam =()=>{
             TimeStamp:'2024-02-12T16:00',
             Dur:8,
         }
+        },
+        {
+          "ArmyDate": "2024-02-04",
+          "M16": false,
+          "birthDay": "2024-02-06",
+          "email": "Elielkl@hotmail.com",
+          "fullName": "יוסי כהן",
+          "isStudent": true,
+          "isVeg": false,
+          "job": "סטוד ט",
+          "kala": false,
+          "mag": false,
+          "matol": false,
+          "mictar": true,
+          "negev": false,
+          "personalNum": 7522485,
+          "phone": "0544253506",
+          "shoe": 42,
+          "sniper": false,
+          "tar": true,
+          "title": "לוחם",
+          "uniform": "ב",
+          class1:7,
+          'lastM':{
+            Mname:'',
+            MWeight:0,
+            TimeStamp:0,
+            Dur:0,
+        }
         }
       ]
 }
@@ -72,6 +101,7 @@ const ischeck =(value) =>{
 const init = () =>{
     MISSIONS=[];
     SOLIDERS=[];
+    _CURRENT_MISSION_ID=0;
     ReadFrom("Missions",(data)=>{
         console.log('from call back' , data);
         MISSIONS = data;
@@ -101,6 +131,20 @@ const ReadFrom = (ref,CB) => {
     })
 };
 
+function generateUniqueKey(array) {
+  // Extract all keys from the objects in the array
+  const keys = array.map(obj => obj.key);
+
+  // Generate a unique key
+  let uniqueKey;
+  do {
+    // Generate a random 4-digit key
+    uniqueKey = Math.floor(1000 + Math.random() * 9000).toString();
+  } while (keys.includes(uniqueKey)); // Make sure the key is not already in use
+
+  return uniqueKey;
+}
+
 
 const PostMission=()=>{
     let name  = document.getElementById('name').value;
@@ -118,6 +162,7 @@ const PostMission=()=>{
     mission.Repet = repet;
     mission.Tinterval = tinterval;
     mission.Allthetime = allthetime;
+    mission.key = generateUniqueKey(MISSIONS);
     console.log(mission);
     MISSIONS.push(mission);
     Save2Once('Missions',MISSIONS);
@@ -143,9 +188,9 @@ function calculateRestTime(soldier) {
     const missionWeight = soldier.lastM.MWeight;
     const elapsedMilliseconds = now - lastMissionEnd;
     let res =  elapsedMilliseconds / (missionWeight*soldier.lastM.Dur*1000*60); // Assuming weight represents mission duration
-    console.log(elapsedMilliseconds,missionWeight,soldier.lastM.Dur,res)
+   // console.log(elapsedMilliseconds,missionWeight,soldier.lastM.Dur,res)
     res = Math.round(res);
-    console.log(res);
+    //console.log(res);
     return res;
 }
 
@@ -196,7 +241,7 @@ const RenderTableM=()=>{
 
   for (let i = 0; i < MISSIONS.length; i++) {
     const m = MISSIONS[i];
-    str+=`<tr>
+    str+=`<tr id="${m.key}">
     <td>${m.Name}</td>
     <td>${m.Dur}</td>
     <td>${m.Date}</td>
@@ -205,7 +250,7 @@ const RenderTableM=()=>{
     <td>${m.Allthetime}</td>
     <td>
     <div class="flex">
-    <button onclick="RenderTableSOL()" style="width:65px; font-size:16px; margin-right:5px;"  id="F-${i}" class="btn-ez-effect">מצא שיבוץ</button>   
+    <button onclick="RenderTableSOL(${m.key})" style="width:65px; font-size:16px; margin-right:5px;"  id="F-${i}" class="btn-ez-effect">מצא שיבוץ</button>   
     <button style="width:65px; font-size:16px; margin-right:5px;"  id="U-${i}" class="btn-ok-effect">עריכה</button> 
     <button style="width:65px; font-size:16px; margin-right:5px;" id="X-${m.Name}" class="btn-X-effect">מחיקה</button>
     </div>
@@ -233,8 +278,9 @@ const RenderTableM=()=>{
   }
 
 
-  const RenderTableSOL=()=>{
+  const RenderTableSOL=(missionID)=>{
     let ResArr = findSoldiersWithRestTimeOrder(SOLIDERS);
+    _CURRENT_MISSION_ID = missionID;
     let str =`<table id="DB-Table2" class="display" style="width:100%">
     <thead>
     <tr>
@@ -266,7 +312,7 @@ const RenderTableM=()=>{
     let res = calculateRestTime(R);
 
 
-    str+=`<tr>
+    str+=`<tr id ="${R.personalNum}">
     <td style="font-size:22px;">${R.fullName}</td>
     <td>${R.class1}</td>
     <td>${R.lastM.Mname}</td>
@@ -277,7 +323,7 @@ const RenderTableM=()=>{
     <th>${res}</th>
     <td>
     <div class="flex">  
-    <button style="width:65px; font-size:16px; margin-right:5px;"  id="U-${i}" class="btn-ok-effect">שבץ</button> 
+    <button onclick="connectSol_Mission(${R.personalNum})" style="width:65px; font-size:16px; margin-right:5px;"  id="U-${i}" class="btn-ok-effect">שבץ</button> 
     </div>
     </td>
   </tr>`
@@ -300,7 +346,7 @@ const RenderTableM=()=>{
   `;
   document.getElementById('SolPH').innerHTML = str;
   new DataTable('#DB-Table2',{
-    order: [[6, 'desc']]
+    order: [[7, 'desc']]
   });
   $('#SolDBHolder').fadeIn();
   }
@@ -308,10 +354,49 @@ const RenderTableM=()=>{
 
 
 
+ const connectSol_Mission = (SolPersonalNum)=>{
+  _CURRENT_SOLIDER_TARGET_MISSION = SolPersonalNum;
+  console.log('mission:',_CURRENT_MISSION_ID,' Sol:',_CURRENT_SOLIDER_TARGET_MISSION);
+  const ThisSol = findObjectByAttribute(SOLIDERS,'personalNum',_CURRENT_SOLIDER_TARGET_MISSION);
+  const ThisMission = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
+  console.log('mission:',ThisMission,' Sol:',ThisSol);
+  
 
 
+  //save the submit solider to mission in the soldiers array and need to save in the DB in Miluim_new ref 
+  // and then need to Re-Render the data table ! 
+  //Save2Once('Miluim_New',SOLIDERS)
+
+  
+  $('#timeStartInputWraper').fadeIn();     
+ }
 
 
+ const  continueConnect = ()=>{
+  const ThisMission = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
+  let startTime = document.getElementById('startTimeIN').value;
+  let startDate = new Date(startTime)
+  let endTime = addHoursToDate(startDate,ThisMission.Dur);
+  endTime = formatDateToCustomFormat(endTime);
+  for (const obj of SOLIDERS) {
+      // Check if the current object has the specified attribute with the given value
+      if (obj['personalNum'] == _CURRENT_SOLIDER_TARGET_MISSION) {
+        // If found, return the object
+        obj.lastM = {
+          Mname:ThisMission.Name,
+          MWeight:ThisMission.Weight,
+          TimeStamp:endTime,
+          Dur:ThisMission.Dur,
+        }
+      }
+      else {
+        // error !
+      }
+  }
+  $('#timeStartInputWraper').fadeOut();
+  $('#SolDBHolder').fadeOut();
+
+} 
 
 
 
@@ -323,6 +408,41 @@ const RenderTableM=()=>{
     return `${day}/${month}/${year}`;
 }
 
+function formatDateToCustomFormat(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
 const closeModal =(id)=>{
     $(`#${id}`).fadeOut();
+}
+
+
+
+function findObjectByAttribute(array, attributeName, attributeValue) {
+  // Iterate through the array of objects
+  for (const obj of array) {
+    // Check if the current object has the specified attribute with the given value
+    if (obj[attributeName] == attributeValue) {
+      // If found, return the object
+      return obj;
+    }
+  }
+  // If no matching object is found, return null
+  return null;
+}
+
+
+
+
+
+function addHoursToDate(date, hoursToAdd) {
+  const newDate = new Date(date); // Create a new Date object to avoid modifying the original date
+  newDate.setHours(newDate.getHours() + hoursToAdd); // Add hours to the date
+  return newDate;
 }

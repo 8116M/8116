@@ -120,7 +120,16 @@ src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
         </div>
     </section>
   
-<!-- <input type="datetime-local" name="" id="s"> -->
+
+<div id="timeStartInputWraper">
+    <div id="timeStartInputWraper-ph">
+        <p>זמן התחלת המשימה</p>
+        <input style="font-size: 18px;" type="datetime-local" name="" id="startTimeIN">
+        <button onclick="continueConnect()" class="btn-ok-effect">שבץ חייל למשימה זו</button>
+        <button onclick="$('#timeStartInputWraper').fadeOut()" class="btn-X-effect">בטל</button>
+
+    </div>
+</div>
 
 </body>
 </html>
