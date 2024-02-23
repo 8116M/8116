@@ -1,5 +1,5 @@
 class Solider {
-    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,class1){
+    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1){
         this.personalNum=personalNum;
         this.fullName=fullName;
         this.phone=phone;
@@ -20,6 +20,7 @@ class Solider {
         this.mag = mag
         this.sniper = sniper
         this.kala = kala
+        this.medic = medic;
         this.class1 = class1;
         this.lastM={
             Mname:'',

@@ -1,0 +1,18 @@
+css the nav bar with border.
+
+create edit methods and delete method.
+
+clean the inputs after submit.
+
+change the mission object to :
+without repet 
+add date start and time !
+add amount of solider and commandors requird to block of mission.
+
+mabye need to add object.values to readfrom funtion in missions.js
+
+mabye change the ui of mission.html to blocks
+
+
+make some ERD digram for this model .
+

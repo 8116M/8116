@@ -10,6 +10,9 @@ const ReadFrom = (ref,CB) => {
     collection.on("value", (snapshot) => {
       const data = snapshot.val();
       GlobalDATA = data;
+      if (typeof(GlobalDATA)=='object') {
+        GlobalDATA = Object.values(GlobalDATA);
+      }
       console.log(GlobalDATA)
       // console.log(Object.keys(data).length)
     });
@@ -50,12 +53,14 @@ const suckObject = () => {
     let sniper = document.getElementById('sniper').checked;
     let mag = document.getElementById('mag').checked;
     let kala = document.getElementById('kala').checked;
+    let medic = document.getElementById('medic').checked;
 
 
 
 
 
-    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,class1);
+
+    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1);
     const bool = solider.validation();
     console.log(solider);
     if (!bool) {
@@ -78,6 +83,8 @@ const suckObject = () => {
             icon: "success"
         }).then(()=>{
             window.close();
+            window.location.href='https://www.google.com';
+
         })
 
     }
