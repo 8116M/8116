@@ -79,6 +79,103 @@ src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
     </section>
 
 
+    <section id="mission-card">
+        <div class="wrap-ph" id="G-25/02/2024">
+            <h1 class="dateTitle">25/02/2024</h1><hr>
+            <h1>יום ראשון</h1>
+            <div class="wrap-grid">
+                <div class="one-card complete" id="2134">
+                    <h1>יזומה</h1>
+                    <p>מתחיל: 25/02/2024 15:00</p>
+                    <p>נגמר: 25/02/2024 18:00</p>
+                    <p>סהכ : 3 שעות</p>
+                    <hr class="hrr">
+                    <p>צוות:<br>יוסי כהן <br>יוסי כהן <br>יוסי כהן</p>
+                    <button class="btn-ok-effect" onclick="RenderTableSOL('1111')">מצא שיבוץ</button>
+                    <button class="btn-ok-effect">עריכה</button>
+                    <button class="btn-X-effect">מחיקה</button>
+    
+    
+    
+                </div>
+                <div class="one-card complete" id="2134">
+                    <h1>יזומה</h1>
+                    <p>מתחיל: 25/02/2024 15:00</p>
+                    <p>נגמר: 25/02/2024 18:00</p>
+                    <p>סהכ : 3 שעות</p>
+                    <hr class="hrr">
+                    <p>צוות:<br>יוסי כהן <br>יוסי כהן <br>יוסי כהן</p>
+                    <button class="btn-ok-effect" onclick="RenderTableSOL('1111')">מצא שיבוץ</button>
+                    <button class="btn-ok-effect">עריכה</button>
+                    <button class="btn-X-effect">מחיקה</button>
+    
+    
+    
+                </div>
+                <div class="one-card NOTcomplete" id="2134">
+                    <h1>יזומה</h1>
+                    <p>מתחיל: 25/02/2024 15:00</p>
+                    <p>נגמר: 25/02/2024 18:00</p>
+                    <p>סהכ : 3 שעות</p>
+                    <hr class="hrr">
+                    <p>אין שיבוץ</p><br>
+                    <button class="btn-ok-effect" onclick="RenderTableSOL('1111')">מצא שיבוץ</button>
+                    <button class="btn-ok-effect">עריכה</button>
+                    <button class="btn-X-effect">מחיקה</button>
+    
+    
+    
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="wrap-ph" id="G-25/02/2024">
+            <h1 class="dateTitle">25/02/2024</h1><hr>
+            <h1>יום ראשון</h1>
+            <div class="wrap-grid">
+                <div class="one-card complete" id="2134">
+                    <h1>יזומה</h1>
+                    <p>מתחיל: 25/02/2024 15:00</p>
+                    <p>נגמר: 25/02/2024 18:00</p>
+                    <p>סהכ : 3 שעות</p>
+                    <hr class="hrr">
+                    <p>צוות:<br>יוסי כהן <br>יוסי כהן <br>יוסי כהן</p>
+                    <button class="btn-ok-effect" onclick="RenderTableSOL('1111')">מצא שיבוץ</button>
+                    <button class="btn-ok-effect">עריכה</button>
+                    <button class="btn-X-effect">מחיקה</button>
+    
+    
+    
+                </div>
+                <div class="one-card NOTcomplete" id="2134">
+                    <h1>יזומה</h1>
+                    <p>מתחיל: 25/02/2024 15:00</p>
+                    <p>נגמר: 25/02/2024 18:00</p>
+                    <p>סהכ : 3 שעות</p>
+                    <hr class="hrr">
+                    <p>אין שיבוץ</p><br>
+                    <button class="btn-ok-effect" onclick="RenderTableSOL('1111')">מצא שיבוץ</button>
+                    <button class="btn-ok-effect">עריכה</button>
+                    <button class="btn-X-effect">מחיקה</button>
+    
+    
+    
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+
+
+
 
 
     <!-- Modal HTML embedded directly into document -->
@@ -89,20 +186,17 @@ src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
                 <input type="text" name="name" id="name">
                 <p>משך המשימה בשעות</p>
                 <input type="number" name="dur" id="dur">
-                <p>תאריך של המשימה</p>
-                <input type="date" name="date" id="date">
+                <p>זמן התחלה</p>
+                <input type="datetime-local" name="dateStart" id="dateStart">
+                <p style="margin-top: 30px;">סדכ דרוש למשימה</p>
+                <div dir="rtl" class="sameRow">
+                    <span>מפקדים</span> <input type="number" min="0" name="commandAmount" class="samelineIN" id="commandAmount">
+                    <span>חיילים</span> <input type="number" min="1" name="soliderAmount" class="samelineIN" id="soliderAmount">
+
+                </div>
                 <p>משקל המשימה</p>
                 <input type="number" name="weight" id="weight">
-                <p>משימה חוזרת ?</p>
-                <input onchange="ischeck(this.checked)" type="checkbox" name="repet" id="repet">
-                <div id="showtoggleW">
-                    <div id="showtoggle">
-                        <p>כל כמה ימים</p>
-                        <input type="number" name="interval" id="tinterval">
-                    </div>
-                </div>
-
-                <p>משימה רצופה?</p>
+                <p>משימה רציפה?</p>
                 <input type="checkbox" name="allthetime" id="allthetime">
                 <button onclick="PostMission()" class="btn">הוסף</button>
 
@@ -121,7 +215,7 @@ src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
     </section>
   
 
-<div id="timeStartInputWraper">
+<!-- <div id="timeStartInputWraper">
     <div id="timeStartInputWraper-ph">
         <p>זמן התחלת המשימה</p>
         <input style="font-size: 18px;" type="datetime-local" name="" id="startTimeIN">
@@ -129,7 +223,7 @@ src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
         <button onclick="$('#timeStartInputWraper').fadeOut()" class="btn-X-effect">בטל</button>
 
     </div>
-</div>
+</div> -->
 
 </body>
 </html>

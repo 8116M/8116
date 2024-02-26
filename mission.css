@@ -31,9 +31,11 @@
 }
 
 #tableHolder td {
-    font-size: 18px;
+    font-size: 21px;
 }
-
+#tableHolder {
+    display: none;
+}
 .flex {
     display: flex;
     justify-content: center;
@@ -53,7 +55,10 @@
     background-image: linear-gradient(1770deg, #d9cde5 0%, #cec3dd 50%, #cfc1dd 75%);
     border: 1px black solid;
 }
-
+#dateStart{
+    padding: 5px;
+    border-radius: 10px;
+}
 #timeStartInputWraper {
     display: none;
     position: absolute;
@@ -68,4 +73,64 @@
 }
 #timeStartInputWraper-ph * {
     margin-block: 15px;
+}
+.sameRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.sameRow span {
+    font-size: 16px;
+}
+.samelineIN{
+    width: 75px;
+}
+
+#mission-card{
+    text-align: right;
+}
+.dateTitle{
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin: 0;
+    padding: 25px;
+}
+.wrap-ph{
+    margin-block: 25px
+}
+.hrr {
+        border: none;
+        height: 3px;
+        background-color: #84aee9;
+        text-align: center;
+        width: -webkit-fill-available;
+        border-radius: 50px;
+}
+.one-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border: 1px black solid;
+    padding: 15px;
+    margin-block: 15px;
+    margin-inline: 10px;
+    border-radius: 10px;
+    background-color: beige;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-align: right;
+
+}
+.complete {
+    background-color: rgb(190 245 185);
+}
+.NOTcomplete {
+border: red 1px solid;
+}
+.one-card p {
+    font-size: 18px;
+    margin-block: 5px;
+}
+.wrap-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }

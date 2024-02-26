@@ -105,18 +105,23 @@ const init = () =>{
     ReadFrom("Missions",(data)=>{
         console.log('from call back' , data);
         MISSIONS = data;
-        data==null?MISSIONS=[]:MISSIONS=data;
+        MISSIONS==null?MISSIONS=[]:MISSIONS=data;
+        if (typeof(MISSIONS)=='object') {
+          // console.log(typeof(MISSIONS));
+          MISSIONS = Object.values(MISSIONS);
+        }
+        
         RenderTableM();
     })
 
     //AFTER RegMobile complete.
-    // ReadFrom("Miluim_new",(data)=>{
-    //     console.log('from call back' , data);
-    //     SOLIDERS = data;
-    //     data==null?SOLIDERS=[]:SOLIDERS=data;
+    ReadFrom("Miluim_new",(data)=>{
+        console.log('from call back' , data);
+        SOLIDERS = data;
+        data==null?SOLIDERS=[]:SOLIDERS=data;
         
-    // })
-    SOLIDERS = stam();
+    })
+    //SOLIDERS = stam();
 }
 
 
@@ -149,25 +154,44 @@ function generateUniqueKey(array) {
 const PostMission=()=>{
     let name  = document.getElementById('name').value;
     let dur = document.getElementById('dur').value;
-    let date = document.getElementById('date').value;
+    let date = document.getElementById('dateStart').value;
     let weight = document.getElementById('weight').value;
-    let repet = document.getElementById('repet').checked;
-    let tinterval = document.getElementById('tinterval').value;
+    // let repet = document.getElementById('repet').checked;
+    // let tinterval = document.getElementById('tinterval').value;
     let allthetime = document.getElementById('allthetime').checked;
+    let solidersAmount = document.getElementById('soliderAmount').value;
+    let commandorsAmount = document.getElementById('commandAmount').value;
+
+
     const mission = {};
     mission.Name = name;
     mission.Dur = dur;
     mission.Date = date;
     mission.Weight = weight;
-    mission.Repet = repet;
-    mission.Tinterval = tinterval;
+    // mission.Repet = repet;
+    mission.SolidersAmount = solidersAmount;
+    mission.CommandorsAmount = commandorsAmount;
+    // mission.Tinterval = tinterval;
     mission.Allthetime = allthetime;
     mission.key = generateUniqueKey(MISSIONS);
     console.log(mission);
     MISSIONS.push(mission);
     Save2Once('Missions',MISSIONS);
+    Swal.fire({
+      title: "המשימה נוצרה בהצלחה",
+      text: "המשימה תתווסף לרשימת המשימות",
+      icon: "success"
+  },()=>{
+    document.getElementById('name').value = '';
+    document.getElementById('dur').value = 0;
+    document.getElementById('dateStart').value ='';
+    document.getElementById('weight').value = 0;
+    document.getElementById('soliderAmount').value=0;
+    document.getElementById('commandAmount').value=0;
+  })
     $('#ex1').fadeOut();
     $('.blocker').fadeOut();
+
 
 }
 
@@ -209,7 +233,29 @@ function findSoldiersWithRestTimeOrder(soldiers) {
 
 
 
+const renderCardMissions = ()=>{
+  let localMission = sortByDate(MISSIONS);
+  console.log(localMission);
+  const uniqDates = uniqueDatesWithoutTime(localMission);
+  let stringToReturn = ''
+  for (const i in uniqDates) {
+    let dayofweek = `יום ${getHebrewDayOfWeek(uniqDates[i])}`
+      stringToReturn = `<div class="wrap-ph" id="G-${uniqDates[i]}">`;
+      stringToReturn+=`<h1 class="dateTitle">25/02/2024</h1><hr>
+      <h1>${dayofweek}</h1>
+      <div class="wrap-grid">`
+      for (const m in localMission) {
+        let dateonly = localMission[m].Date.split("T")[0];
+        //console.log(dateonly,uniqDates[i])
+        if (dateonly==uniqDates[i]) {
+          //console.log('mission here',localMission[m]);
+          //render here all the mission in some spesific date.
+        }
+      }
 
+  }
+
+}
 
 
 const RenderTableM=()=>{
@@ -286,11 +332,8 @@ const RenderTableM=()=>{
     <tr>
         <th>שם החייל</th>
         <th>מחלקה</th>
-        <th>שם המשימה</th>
-        <th>משך המשימה בשעות</th>
-        <th>תאריך</th>
-        <th>משעה</th>
-        <th>עד שעה</th>
+        <th>משימה אחרונה</th>
+        <th>ממתי עד מתי</th>
         <th>ניקוד</th>
         <th>פעולות</th>
 
@@ -310,17 +353,16 @@ const RenderTableM=()=>{
     until = until.split(" ")[0];
     from = from.split(" ")[0];
     let res = calculateRestTime(R);
-
+    let space = ' ';
+    let br = '<br>';
+    let dateString = date+br+from+br+until
 
     str+=`<tr id ="${R.personalNum}">
     <td style="font-size:22px;">${R.fullName}</td>
     <td>${R.class1}</td>
-    <td>${R.lastM.Mname}</td>
-    <td>${R.lastM.Dur}</td>
-    <td>${date}</td>
-    <td>${from}</td>
-    <td>${until}</td>
-    <th>${res}</th>
+    <td>${R.lastM.Mname==''?'אין':R.lastM.Mname}</td>
+    <td>${dateString}</td>
+    <td>${res}</td>
     <td>
     <div class="flex">  
     <button onclick="connectSol_Mission(${R.personalNum})" style="width:65px; font-size:16px; margin-right:5px;"  id="U-${i}" class="btn-ok-effect">שבץ</button> 
@@ -334,11 +376,8 @@ const RenderTableM=()=>{
     <tr>
     <th>שם החייל</th>
     <th>מחלקה</th>
-    <th>שם המשימה</th>
-    <th>משך המשימה בשעות</th>
-    <th>תאריך</th>
-    <th>משעה</th>
-    <th>עד שעה</th>
+    <th>משימה אחרונה</th>
+    <th>ממתי עד מתי</th>
     <th>ניקוד</th>
     <th>פעולות</th>
   </tr>
@@ -346,7 +385,7 @@ const RenderTableM=()=>{
   `;
   document.getElementById('SolPH').innerHTML = str;
   new DataTable('#DB-Table2',{
-    order: [[7, 'desc']]
+    order: [[4, 'desc']]
   });
   $('#SolDBHolder').fadeIn();
   }
@@ -445,4 +484,75 @@ function addHoursToDate(date, hoursToAdd) {
   const newDate = new Date(date); // Create a new Date object to avoid modifying the original date
   newDate.setHours(newDate.getHours() + hoursToAdd); // Add hours to the date
   return newDate;
+}
+
+
+
+
+function addHoursAndFormat(initialDatetime, hoursToAdd) {
+  // Parse the initial datetime string
+  var initialDate = new Date(initialDatetime);
+  
+  // Add X hours
+  initialDate.setHours(initialDate.getHours() + hoursToAdd);
+  
+  // Format the resulting datetime
+  var formattedResult = `${padZero(initialDate.getDate())}/${padZero(initialDate.getMonth() + 1)}/${initialDate.getFullYear()} ${padZero(initialDate.getHours())}:${padZero(initialDate.getMinutes())}`;
+  
+  return formattedResult;
+}
+
+// Helper function to pad single digits with leading zeros
+function padZero(num) {
+  return num < 10 ? '0' + num : num;
+}
+
+
+
+function sortByDate(array) {
+  // Custom comparison function
+  function compareDates(a, b) {
+      return new Date(a.Date) - new Date(b.Date);
+  }
+  
+  // Sort the array based on the date attribute
+  array.sort(compareDates);
+  
+  return array;
+}
+
+
+
+//create uniq array of date only
+function uniqueDatesWithoutTime(arrayOfObjects) {
+  // Create a Set to store unique date strings
+  var uniqueDates = new Set();
+
+  // Iterate through the array of objects
+  arrayOfObjects.forEach(function(obj) {
+      // Extract the date part from each datetime string
+      var datePart = obj.Date.split("T")[0]; // Extracts the date part before "T"
+      // Add it to the Set
+      uniqueDates.add(datePart);
+  });
+
+  // Convert the Set back to an array if needed
+  var uniqueDateArray = Array.from(uniqueDates);
+  
+  return uniqueDateArray;
+}
+
+//get hebrew string day of week
+function getHebrewDayOfWeek(dateString) {
+  // Create a Date object from the input date string
+  var date = new Date(dateString);
+  
+  // Array of Hebrew day names
+  var hebrewDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+  
+  // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+  var dayOfWeek = date.getDay();
+  
+  // Return the Hebrew day name corresponding to the day of the week
+  return hebrewDays[dayOfWeek];
 }
