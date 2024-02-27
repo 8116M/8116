@@ -460,7 +460,8 @@ const RenderTableM=()=>{
 
   //new idea to implment the missin in the sol.lastM
   // and implement the solider in the team. becarful with command and regular solider ! 
-  
+    // use the update function 
+
 
 
   //save the submit solider to mission in the soldiers array and need to save in the DB in Miluim_new ref 
@@ -471,31 +472,31 @@ const RenderTableM=()=>{
  }
 
 
- const  continueConnect = ()=>{
-  const ThisMission = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
-  let startTime = document.getElementById('startTimeIN').value;
-  let startDate = new Date(startTime)
-  let endTime = addHoursToDate(startDate,ThisMission.Dur);
-  endTime = formatDateToCustomFormat(endTime);
-  for (const obj of SOLIDERS) {
-      // Check if the current object has the specified attribute with the given value
-      if (obj['personalNum'] == _CURRENT_SOLIDER_TARGET_MISSION) {
-        // If found, return the object
-        obj.lastM = {
-          Mname:ThisMission.Name,
-          MWeight:ThisMission.Weight,
-          TimeStamp:endTime,
-          Dur:ThisMission.Dur,
-        }
-      }
-      else {
-        // error !
-      }
-  }
-  $('#timeStartInputWraper').fadeOut();
-  $('#SolDBHolder').fadeOut();
+//  const  continueConnect = ()=>{
+//   const ThisMission = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
+//   let startTime = document.getElementById('startTimeIN').value;
+//   let startDate = new Date(startTime)
+//   let endTime = addHoursToDate(startDate,ThisMission.Dur);
+//   endTime = formatDateToCustomFormat(endTime);
+//   for (const obj of SOLIDERS) {
+//       // Check if the current object has the specified attribute with the given value
+//       if (obj['personalNum'] == _CURRENT_SOLIDER_TARGET_MISSION) {
+//         // If found, return the object
+//         obj.lastM = {
+//           Mname:ThisMission.Name,
+//           MWeight:ThisMission.Weight,
+//           TimeStamp:endTime,
+//           Dur:ThisMission.Dur,
+//         }
+//       }
+//       else {
+//         // error !
+//       }
+//   }
+//   $('#timeStartInputWraper').fadeOut();
+//   $('#SolDBHolder').fadeOut();
 
-} 
+// } 
 
 
 
@@ -649,4 +650,37 @@ function ReversToValidString(inputDate) {
   var formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
   
   return formattedDate;
+}
+
+
+// find object by the key and change the value of the property and return the array
+function updateObjectProperty(arrayOfObjects, keyName, keyValue, propertyToUpdate, newValue) {
+  // Find the object with the specified key and value
+  const foundObject = arrayOfObjects.find(obj => obj[keyName] === keyValue);
+  
+  // If the object is found, update the specified property
+  if (foundObject) {
+      foundObject[propertyToUpdate] = newValue;
+  } else {
+      console.log("Object not found with the specified key and value.");
+  }
+  
+  // Optionally, you can return the modified array of objects
+  return arrayOfObjects;
+}
+
+//remove object by key and return the new array
+function removeObjectByKey(arrayOfObjects, keyName, keyValue) {
+  // Find the index of the object with the specified key and value
+  const index = arrayOfObjects.findIndex(obj => obj[keyName] === keyValue);
+  
+  // If the object is found, remove it from the array
+  if (index !== -1) {
+      arrayOfObjects.splice(index, 1);
+  } else {
+      console.log("Object not found with the specified key and value.");
+  }
+  
+  // Return the updated array of objects
+  return arrayOfObjects;
 }
