@@ -163,7 +163,7 @@ const PostMission=()=>{
     let allthetime = document.getElementById('allthetime').checked;
     let solidersAmount = document.getElementById('soliderAmount').value;
     let commandorsAmount = document.getElementById('commandAmount').value;
-    const dateArr = generateDatetimeInterval(dateStart,parseInt(dur),DaysinBase);
+    let dateArr = generateDatetimeInterval(dateStart,parseInt(dur),DaysinBase);
     console.log('the date array -->',dateArr);
     if (allthetime==false) {
       dateArr=[];
@@ -413,11 +413,12 @@ const RenderTableM=()=>{
     let space = ' ';
     let br = '<br>';
     let dateString = date+br+from+br+until
+    R.lastM.Name==''?dateString = '-' : dateString = dateString;
 
     str+=`<tr id ="${R.personalNum}">
     <td style="font-size:22px;">${R.fullName}</td>
     <td>${R.class1}</td>
-    <td>${R.lastM.Mname==''?'אין':R.lastM.Mname}</td>
+    <td>${R.lastM.Name==''?'אין':R.lastM.Name}</td>
     <td>${dateString}</td>
     <td>${res}</td>
     <td>

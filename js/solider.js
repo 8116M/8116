@@ -23,10 +23,15 @@ class Solider {
         this.medic = medic;
         this.class1 = class1;
         this.lastM={
-            Mname:'',
-            MWeight:0,
-            TimeStamp:0,
-            Dur:0,
+            Allthetime: '',
+            CommandorsAmount: '',
+            DateEnd:'' ,
+            DateStart: '',
+            Dur: '',
+            Name: "",
+            SolidersAmount:'' ,
+            Weight: '',
+            key: ''
         }
 
     }
