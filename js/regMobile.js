@@ -10,6 +10,7 @@ const ReadFrom = (ref,CB) => {
     collection.on("value", (snapshot) => {
       const data = snapshot.val();
       GlobalDATA = data;
+      GlobalDATA==null?GlobalDATA=[]:GlobalDATA=data;
       if (typeof(GlobalDATA)=='object') {
         GlobalDATA = Object.values(GlobalDATA);
       }

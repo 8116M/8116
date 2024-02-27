@@ -90,6 +90,7 @@ const stam =()=>{
       ]
 }
 
+const DaysinBase = 60;
 
 
 const ischeck =(value) =>{
@@ -111,7 +112,8 @@ const init = () =>{
           MISSIONS = Object.values(MISSIONS);
         }
         
-        RenderTableM();
+        //RenderTableM();
+        renderCardMissions();
     })
 
     //AFTER RegMobile complete.
@@ -153,42 +155,66 @@ function generateUniqueKey(array) {
 
 const PostMission=()=>{
     let name  = document.getElementById('name').value;
-    let dur = document.getElementById('dur').value;
-    let date = document.getElementById('dateStart').value;
+    let dur = parseInt(document.getElementById('dur').value);
+    let dateStart = document.getElementById('dateStart').value;
     let weight = document.getElementById('weight').value;
     // let repet = document.getElementById('repet').checked;
     // let tinterval = document.getElementById('tinterval').value;
     let allthetime = document.getElementById('allthetime').checked;
     let solidersAmount = document.getElementById('soliderAmount').value;
     let commandorsAmount = document.getElementById('commandAmount').value;
+    const dateArr = generateDatetimeInterval(dateStart,parseInt(dur),DaysinBase);
+    console.log('the date array -->',dateArr);
+    if (allthetime==false) {
+      dateArr=[];
+      let d = new Date(dateStart);
+      dateArr.push(d.getTime());
+    }
+    for (let i = 0; i < dateArr.length; i++) {
+      let today = new Date();
+
+      const d = dateArr[i];
+      const d2 = new Date(d);
+      d2.setHours(d2.getHours()+dur);
+      const mission = {};
+      mission.Name = name;
+      mission.Dur = dur;
+      if (today.getTime()>d2.getTime()) {
+        continue;
+      }
+      mission.DateStart = d;
+      mission.DateEnd = d2.getTime();
+      
+      mission.Weight = weight;
+      mission.Team =[];
+      // mission.Repet = repet;
+      mission.SolidersAmount = solidersAmount;
+      mission.CommandorsAmount = commandorsAmount;
+      // mission.Tinterval = tinterval;
+      mission.Allthetime = allthetime;
+      mission.key = generateUniqueKey(MISSIONS);
+      console.log(mission);
+      MISSIONS.push(mission);
+    }
+
+    setTimeout(()=>{
+      Save2Once('Missions',MISSIONS);
+      Swal.fire({
+        title: "המשימה נוצרה בהצלחה",
+        text: "המשימה תתווסף לרשימת המשימות",
+        icon: "success"
+      },()=>{
+      document.getElementById('name').value = '';
+      document.getElementById('dur').value = 0;
+      document.getElementById('dateStart').value ='';
+      document.getElementById('weight').value = 0;
+      document.getElementById('soliderAmount').value=0;
+      document.getElementById('commandAmount').value=0;
+      })
+
+    },1000)
 
 
-    const mission = {};
-    mission.Name = name;
-    mission.Dur = dur;
-    mission.Date = date;
-    mission.Weight = weight;
-    // mission.Repet = repet;
-    mission.SolidersAmount = solidersAmount;
-    mission.CommandorsAmount = commandorsAmount;
-    // mission.Tinterval = tinterval;
-    mission.Allthetime = allthetime;
-    mission.key = generateUniqueKey(MISSIONS);
-    console.log(mission);
-    MISSIONS.push(mission);
-    Save2Once('Missions',MISSIONS);
-    Swal.fire({
-      title: "המשימה נוצרה בהצלחה",
-      text: "המשימה תתווסף לרשימת המשימות",
-      icon: "success"
-  },()=>{
-    document.getElementById('name').value = '';
-    document.getElementById('dur').value = 0;
-    document.getElementById('dateStart').value ='';
-    document.getElementById('weight').value = 0;
-    document.getElementById('soliderAmount').value=0;
-    document.getElementById('commandAmount').value=0;
-  })
     $('#ex1').fadeOut();
     $('.blocker').fadeOut();
 
@@ -234,26 +260,57 @@ function findSoldiersWithRestTimeOrder(soldiers) {
 
 
 const renderCardMissions = ()=>{
-  let localMission = sortByDate(MISSIONS);
+  let space = ' ';
+  let lineBreak = '<br>';
+  let localMission = MISSIONS
   console.log(localMission);
   const uniqDates = uniqueDatesWithoutTime(localMission);
   let stringToReturn = ''
+  console.log('the uniq dates -->',uniqDates);
   for (const i in uniqDates) {
-    let dayofweek = `יום ${getHebrewDayOfWeek(uniqDates[i])}`
-      stringToReturn = `<div class="wrap-ph" id="G-${uniqDates[i]}">`;
-      stringToReturn+=`<h1 class="dateTitle">25/02/2024</h1><hr>
-      <h1>${dayofweek}</h1>
+    let dayofweek = `יום ${getHebrewDayOfWeek(ReversToValidString(uniqDates[i]))}`
+      stringToReturn += `<div class="wrap-ph" id="G-${uniqDates[i]}">`;
+      stringToReturn+=`<h1 class="dateTitle">${uniqDates[i]}</h1><hr>
+      <h1 style="margin-right:25px;font-size:22px">${dayofweek}</h1>
       <div class="wrap-grid">`
       for (const m in localMission) {
-        let dateonly = localMission[m].Date.split("T")[0];
+        let dateonly = localMission[m].DateStart
+        dateonly = formatDate(new Date(dateonly));
         //console.log(dateonly,uniqDates[i])
         if (dateonly==uniqDates[i]) {
           //console.log('mission here',localMission[m]);
           //render here all the mission in some spesific date.
+          //complete css class if complete 
+          stringToReturn+=`<div class="one-card " id="${localMission[m].key}">
+          <h1>${localMission[m].Name}</h1>
+          <p>מתחיל:${addHoursAndFormat(localMission[m].DateStart,0)}</p>
+          <p>נגמר:${addHoursAndFormat(localMission[m].DateEnd,0)}</p>
+          <p>סהכ : ${localMission[m].Dur} שעות</p>
+          <hr class="hrr">
+          `;
+          if (typeof(localMission[m].Team)=='undefined') {
+            stringToReturn+=`<p>אין שיבוץ</p>`
+          }
+          else{
+            stringToReturn+='<p>';
+            stringToReturn+=`צוות:`;
+            for (const k in localMission[m].Team ) {
+              stringToReturn+=lineBreak+localMission[m].Team[k].name + space + lineBreak+localMission[m].Team[k].title
+            }
+          }
+          stringToReturn+=`<hr class="hrr"><button class="btn-ok-effect" onclick="RenderTableSOL(${localMission[m].key})">מצא שיבוץ</button>
+          <button class="btn-ok-effect">עריכה</button>
+          <button class="btn-X-effect">מחיקה</button>
+          </div>`
+
         }
       }
+      stringToReturn+='</div></div>';
 
   }
+  document.getElementById('mission-card').innerHTML = stringToReturn;
+  $('#mission-card').fadeIn();
+  return stringToReturn;
 
 }
 
@@ -388,6 +445,7 @@ const RenderTableM=()=>{
     order: [[4, 'desc']]
   });
   $('#SolDBHolder').fadeIn();
+  document.getElementById('SolDBHolder').scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
 
@@ -399,6 +457,9 @@ const RenderTableM=()=>{
   const ThisSol = findObjectByAttribute(SOLIDERS,'personalNum',_CURRENT_SOLIDER_TARGET_MISSION);
   const ThisMission = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
   console.log('mission:',ThisMission,' Sol:',ThisSol);
+
+  //new idea to implment the missin in the sol.lastM
+  // and implement the solider in the team. becarful with command and regular solider ! 
   
 
 
@@ -407,7 +468,6 @@ const RenderTableM=()=>{
   //Save2Once('Miluim_New',SOLIDERS)
 
   
-  $('#timeStartInputWraper').fadeIn();     
  }
 
 
@@ -531,7 +591,7 @@ function uniqueDatesWithoutTime(arrayOfObjects) {
   // Iterate through the array of objects
   arrayOfObjects.forEach(function(obj) {
       // Extract the date part from each datetime string
-      var datePart = obj.Date.split("T")[0]; // Extracts the date part before "T"
+      var datePart = formatDate(new Date(obj.DateStart));  // Extracts the date part before "T"
       // Add it to the Set
       uniqueDates.add(datePart);
   });
@@ -546,7 +606,7 @@ function uniqueDatesWithoutTime(arrayOfObjects) {
 function getHebrewDayOfWeek(dateString) {
   // Create a Date object from the input date string
   var date = new Date(dateString);
-  
+  //console.log('getHebrewDayOfWeek -->',date,dateString)
   // Array of Hebrew day names
   var hebrewDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
   
@@ -555,4 +615,38 @@ function getHebrewDayOfWeek(dateString) {
   
   // Return the Hebrew day name corresponding to the day of the week
   return hebrewDays[dayOfWeek];
+}
+
+
+// create interval of dates
+function generateDatetimeInterval(initialDatetime, hours, intervalLength) {
+  // Convert initialDatetime to a Date object
+  var currentDate = new Date(initialDatetime);
+  
+  // Initialize an array to store the resulting datetimes
+  var datetimeArray = [];
+  datetimeArray.push(currentDate.getTime())
+  // Loop through the interval
+  for (var i = 0; i < intervalLength; i++) {
+      // Add hours to the current datetime
+      currentDate.setHours(currentDate.getHours() + hours);
+      
+      // Push the formatted datetime into the array
+      datetimeArray.push(currentDate.getTime());
+  }
+  
+  return datetimeArray;
+}
+
+
+
+
+function ReversToValidString(inputDate) {
+  // Split the input date string by "/"
+  var parts = inputDate.split('/');
+  
+  // Rearrange the parts to form the desired format (year-month-day)
+  var formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
+  
+  return formattedDate;
 }

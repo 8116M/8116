@@ -43,7 +43,7 @@ class Solider {
         if (this.fullName=='' || this.fullName == null) {
             return false;
         }
-        if (this.phone=='' || this.phone == null || this.phone.length!=10) {
+        if (this.phone=='' || this.phone == null ) {
             return false;
         }
         if (this.email=='' || this.email == null) {

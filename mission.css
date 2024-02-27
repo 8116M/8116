@@ -55,9 +55,14 @@
     background-image: linear-gradient(1770deg, #d9cde5 0%, #cec3dd 50%, #cfc1dd 75%);
     border: 1px black solid;
 }
-#dateStart{
+.datesinput{
     padding: 5px;
     border-radius: 10px;
+    min-height: 41px;
+    max-height: none;
+    min-width: 0;
+    border-radius: 10px;
+    border: none;
 }
 #timeStartInputWraper {
     display: none;
@@ -133,4 +138,7 @@ border: red 1px solid;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+#mission-card{
+    display: none;
 }
