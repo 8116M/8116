@@ -56,17 +56,23 @@
             <label for="fullName">שם מלא:</label>
             <input id="fullName" type="text" class="form-control">
             <label for="phone">מספר טלפון:</label>
-            <input id="phone" type="tel" class="form-control">
+            <input style="text-align: right;" id="phone" type="tel" class="form-control">
             <label for="email">מייל:</label>
             <input id="email" type="email" class="form-control">
             <label for="job">עבודה:</label>
             <input id="job" type="text" class="form-control">
             <label for="birthDay">תאריך לידה:</label>
-            <input id="birthDay" type="date" class="form-control">
+            <input style="text-align: right;" id="birthDay" type="date" class="form-control">
             <label for="ArmyDate">תאריך גיוס: (בסדיר)</label>
-            <input id="ArmyDate" type="date" class="form-control">
+            <input style="text-align: right;" id="ArmyDate" type="date" class="form-control">
             <label for="shoe">מידת נעליים:</label>
             <input id="shoe" type="number" class="form-control">
+            <label for="cityInput">יש לסמן את מקום המגורים הקרוב ביותר אלייך</label>
+            <input class="form-control" type="text" name="cityInput" id="cityInput" list="cities">
+            <datalist id="cities">
+            <!-- Cities and towns in Israel -->
+            </datalist>
+
         </div>
         <br>
         <div class="form-group ">

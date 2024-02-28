@@ -24,8 +24,9 @@ body{
 .padd1 {
     padding: 10px;
 }
-.form-group label{
+.form-group label {
     font-size: 18px;
+    margin-top: 10px;
 }
 
 input[type='checkbox']{

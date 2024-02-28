@@ -2,7 +2,8 @@
 GlobalDATA = [];
 
 const init = () => {
-    ReadFrom('Miluim_new')
+    ReadFrom('Miluim_new');
+    populateCities();
 }
 
 const ReadFrom = (ref,CB) => {
@@ -55,13 +56,13 @@ const suckObject = () => {
     let mag = document.getElementById('mag').checked;
     let kala = document.getElementById('kala').checked;
     let medic = document.getElementById('medic').checked;
+    let city =document.getElementById('cityInput').value
 
 
 
 
 
-
-    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1);
+    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1,city);
     const bool = solider.validation();
     console.log(solider);
     if (!bool) {
@@ -102,4 +103,78 @@ const Save = (value) => {
     ref = firebase.database().ref("Miluim_new");
     ref.set(value);
   };
+
+
+
+
+
+
+  
+  // Function to populate the datalist with cities
+  function populateCities() {
+      const israelCities= [
+        "ירושלים",
+        "תל אביב-יפו",
+        "חיפה",
+        "באר שבע",
+        "ראשון לציון",
+        "פתח תקווה",
+        "אשדוד",
+        "חולון",
+        "נתניה",
+        "בני ברק",
+        "רמת גן",
+        "רחובות",
+        "כפר סבא",
+        "מודיעין-מכבים-רעות",
+        "נהריה",
+        "אשקלון",
+        "פתח תקווה",
+        "קריית אתא",
+        "רמלה",
+        "גבעתיים",
+        "הרצליה",
+        "מודיעין עילית",
+        "קריית גת",
+        "עפולה",
+        "קריית ים",
+        "ראש העין",
+        "נס ציונה",
+        "קריית מוצקין",
+        "יבנה",
+        "בית שמש",
+        "רמת השרון",
+        "אופקים",
+        "לוד",
+        "נוף הגליל",
+        "קריית ביאליק",
+        "דימונה",
+        "שדרות",
+        "מעלות-תרשיחא",
+        "טירת הכרמל",
+        "ערד",
+        "מגדל העמק",
+        "בית שאן",
+        "ירוחם",
+        "כרמיאל",
+        "סח'נין",
+        "אילת",
+        "גבעת שמואל",
+        "אור עקיבא",
+        "ג'סר א-זרקא",
+        "טייבה",
+        "קלנסווה",
+        "עראבה",
+        "רכסים",
+        "פרדס חנה-כרכור",
+        "קריית מלאכי",
+        "מודיעין עילית"
+    ];
+    var dataList = document.getElementById('cities');
+    israelCities.forEach(function(city) {
+      var option = document.createElement('option');
+      option.value = city;
+      dataList.appendChild(option);
+    });
+  }
 

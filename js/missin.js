@@ -210,11 +210,12 @@ const PostMission=()=>{
       document.getElementById('weight').value = 0;
       document.getElementById('soliderAmount').value=0;
       document.getElementById('commandAmount').value=0;
+      
       })
 
     },1000)
 
-
+    setTimeout(()=>{location.reload();},1500);
     $('#ex1').fadeOut();
     $('.blocker').fadeOut();
 
@@ -234,14 +235,25 @@ const Save2Once=(ref,value)=>{
 // Function to calculate rest time for a soldier based on the weight of the last mission
 function calculateRestTime(soldier) {
     const now = new Date();
-    const lastMissionEnd = new Date(soldier.lastM.TimeStamp);
-    const missionWeight = soldier.lastM.MWeight;
+    const lastMissionEnd = new Date(soldier.lastM.DateEnd);
+    const missionWeight = soldier.lastM.Weight;
     const elapsedMilliseconds = now - lastMissionEnd;
+    let elapsedHours = (((elapsedMilliseconds/1000)/60)/60)
+    let ratio = elapsedHours/soldier.lastM.Dur;
+    let res2 = ratio*missionWeight
+    res2 = Math.round(res2);
+
+    if (soldier.lastM.DateEnd=='') {
+      res2 = Infinity;
+    }
+    if (now >=soldier.lastM.DateStart && now <=soldier.lastM.DateStart) {
+      res2 = -1; 
+    }
     let res =  elapsedMilliseconds / (missionWeight*soldier.lastM.Dur*1000*60); // Assuming weight represents mission duration
    // console.log(elapsedMilliseconds,missionWeight,soldier.lastM.Dur,res)
     res = Math.round(res);
     //console.log(res);
-    return res;
+    return res2;
 }
 
 
@@ -263,11 +275,22 @@ const renderCardMissions = ()=>{
   let space = ' ';
   let lineBreak = '<br>';
   let localMission = MISSIONS
+  let today = new Date();
   console.log(localMission);
   const uniqDates = uniqueDatesWithoutTime(localMission);
   let stringToReturn = ''
   console.log('the uniq dates -->',uniqDates);
   for (const i in uniqDates) {
+    let someDate = ReversToValidString(uniqDates[i]);
+    console.log('???',someDate);
+    someDate= someDate.split('-');
+    someDate = new Date(someDate[0],someDate[1],someDate[2])
+    console.log('???',someDate);
+
+    if (isTodayGreaterThanDate(someDate)) {
+      console.log('for skip past dates (im in) -->',isTodayGreaterThanDate(someDate),someDate);
+      continue;
+    }
     let dayofweek = `יום ${getHebrewDayOfWeek(ReversToValidString(uniqDates[i]))}`
       stringToReturn += `<div class="wrap-ph" id="G-${uniqDates[i]}">`;
       stringToReturn+=`<h1 class="dateTitle">${uniqDates[i]}</h1><hr>
@@ -384,6 +407,10 @@ const RenderTableM=()=>{
   const RenderTableSOL=(missionID)=>{
     let ResArr = findSoldiersWithRestTimeOrder(SOLIDERS);
     _CURRENT_MISSION_ID = missionID;
+    _CURRENT_MISSION = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
+    let space = ' ';
+    let br = '<br>';
+
     let str =`<table id="DB-Table2" class="display" style="width:100%">
     <thead>
     <tr>
@@ -410,9 +437,8 @@ const RenderTableM=()=>{
     until = until.split(" ")[0];
     from = from.split(" ")[0];
     let res = calculateRestTime(R);
-    let space = ' ';
-    let br = '<br>';
-    let dateString = date+br+from+br+until
+
+    let dateString = date+br+from+br+until;
     R.lastM.Name==''?dateString = '-' : dateString = dateString;
 
     str+=`<tr id ="${R.personalNum}">
@@ -426,7 +452,7 @@ const RenderTableM=()=>{
     <button onclick="connectSol_Mission(${R.personalNum})" style="width:65px; font-size:16px; margin-right:5px;"  id="U-${i}" class="btn-ok-effect">שבץ</button> 
     </div>
     </td>
-  </tr>`
+    </tr>`
   }
 
     str+=`</tbody>`;
@@ -441,6 +467,17 @@ const RenderTableM=()=>{
   </tr>
   </tfoot>
   `;
+
+  let missionDate = formatDate(new Date(_CURRENT_MISSION.DateStart));
+  let missinStartTime = new Date(_CURRENT_MISSION.DateStart);
+  let missinEndTime = new Date(_CURRENT_MISSION.DateEnd);
+
+  missinStartTime = missinStartTime.getHours()<10?'0'+missinStartTime.getHours()+':00':missinStartTime.getHours()+':00';
+  missinEndTime = missinEndTime.getHours()<10?'0'+missinEndTime.getHours()+':00':missinEndTime.getHours()+':00';
+
+  let MissiondateString = missionDate+br+missinStartTime+' - '+missinEndTime;
+  let missionTitleString = `${_CURRENT_MISSION.Name}${br}${MissiondateString}`;
+  document.getElementById('missionTitle').innerHTML = missionTitleString;
   document.getElementById('SolPH').innerHTML = str;
   new DataTable('#DB-Table2',{
     order: [[4, 'desc']]
@@ -684,4 +721,33 @@ function removeObjectByKey(arrayOfObjects, keyName, keyValue) {
   
   // Return the updated array of objects
   return arrayOfObjects;
+}
+
+
+
+
+function isTodayGreaterThanDate(compareDate) {
+  // Get the current date
+  var currentDate = new Date();
+  var currentYear = currentDate.getFullYear();
+  var currentMonth = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+  var currentDay = currentDate.getDate();
+
+  // Extract year, month, and day parts from the compareDate
+  var compareYear = compareDate.getFullYear();
+  var compareMonth = compareDate.getMonth() + 1; // Month is zero-based, so we add 1
+  var compareDay = compareDate.getDate();
+
+  // Compare the year, month, and day parts
+  if (currentYear > compareYear) {
+      return true;
+  } else if (currentYear === compareYear) {
+      if (currentMonth > compareMonth) {
+          return true;
+      } else if (currentMonth === compareMonth) {
+          return currentDay > compareDay;
+      }
+  }
+  
+  return false;
 }

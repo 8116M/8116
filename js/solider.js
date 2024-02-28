@@ -1,5 +1,5 @@
 class Solider {
-    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1){
+    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1,city){
         this.personalNum=personalNum;
         this.fullName=fullName;
         this.phone=phone;
@@ -22,6 +22,7 @@ class Solider {
         this.kala = kala
         this.medic = medic;
         this.class1 = class1;
+        this.City = city;
         this.lastM={
             Allthetime: '',
             CommandorsAmount: '',
@@ -52,6 +53,9 @@ class Solider {
             return false;
         }
         if (this.email=='' || this.email == null) {
+            return false;
+        }
+        if (this.City=='' || this.City == null) {
             return false;
         }
         if (this.job=='' || this.job == null) {
