@@ -57,12 +57,17 @@ const suckObject = () => {
     let kala = document.getElementById('kala').checked;
     let medic = document.getElementById('medic').checked;
     let city =document.getElementById('cityInput').value
+    let isbusWay = document.getElementById('busWay');
+    let iscarWay = document.getElementById('carWay');
+
+    let davidDriver  = document.getElementById('davidDriver');
+    let zeevDriver = document.getElementById('zeevDriver');
+    let heavyDriver = document.getElementById('heavyDriver');
 
 
 
 
-
-    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1,city);
+    const solider = new Solider(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala,medic,class1,city,davidDriver,zeevDriver,heavyDriver,isbusWay,iscarWay);
     const bool = solider.validation();
     console.log(solider);
     if (!bool) {

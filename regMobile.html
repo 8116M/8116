@@ -67,11 +67,20 @@
             <input style="text-align: right;" id="ArmyDate" type="date" class="form-control">
             <label for="shoe">מידת נעליים:</label>
             <input id="shoe" type="number" class="form-control">
+            <label for="comingWay">אמצעי הגעה:</label>
+            <div class="comingWay">
+                <label for="carWay">רכב פרטי</label>
+                <input type="radio" name="comingWay" id="carWay">
+                <label for="carWay">תחבורה ציבורית</label>
+                <input type="radio" name="comingWay" id="busWay">
+            </div>
+            <br>
             <label for="cityInput">יש לסמן את מקום המגורים הקרוב ביותר אלייך</label>
             <input class="form-control" type="text" name="cityInput" id="cityInput" list="cities">
             <datalist id="cities">
             <!-- Cities and towns in Israel -->
             </datalist>
+            <br>
 
         </div>
         <br>
@@ -179,7 +188,18 @@
                         <input type="checkbox" name="חובש" id="medic">
                     </div>
 
-
+                    <div class="col-xs-6">
+                        <label for="davidDriver">נהג דויד</label>
+                        <input type="checkbox" name="davidDriver" id="davidDriver">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="heavyDriver">נהג אכזרית \ נמר</label>
+                        <input type="checkbox" name="heavyDriver" id="heavyDriver">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="zeevDriver">נהג זאב</label>
+                        <input type="checkbox" name="zeevDriver" id="zeevDriver">
+                    </div>
 
         
                 </div>

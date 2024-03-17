@@ -46,6 +46,16 @@ input[type='checkbox']{
     margin-top: 30px;
 }
 
+.comingWay {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-block: 15px;
+}
+.comingWay input {
+    margin-left: 50px;
+}
+
 .shadow {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     padding-bottom: 15px;

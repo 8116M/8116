@@ -90,7 +90,7 @@ const stam =()=>{
       ]
 }
 
-const DaysinBase = 60;
+_DaysinBase = 60;
 
 
 const ischeck =(value) =>{
@@ -163,7 +163,9 @@ const PostMission=()=>{
     let allthetime = document.getElementById('allthetime').checked;
     let solidersAmount = document.getElementById('soliderAmount').value;
     let commandorsAmount = document.getElementById('commandAmount').value;
-    let dateArr = generateDatetimeInterval(dateStart,parseInt(dur),DaysinBase);
+    let daysInBase = document.getElementById('daysinBase').value;
+    _DaysinBase = daysInBase;
+    let dateArr = generateDatetimeInterval(dateStart,parseInt(dur),_DaysinBase);
     console.log('the date array -->',dateArr);
     if (allthetime==false) {
       dateArr=[];
@@ -180,6 +182,7 @@ const PostMission=()=>{
       mission.Name = name;
       mission.Dur = dur;
       if (today.getTime()>d2.getTime()) {
+        //console.log('i was continued');
         continue;
       }
       mission.DateStart = d;
@@ -276,17 +279,18 @@ const renderCardMissions = ()=>{
   let lineBreak = '<br>';
   let localMission = MISSIONS
   let today = new Date();
-  console.log(localMission);
+  //console.log(localMission);
   const uniqDates = uniqueDatesWithoutTime(localMission);
   let stringToReturn = ''
   console.log('the uniq dates -->',uniqDates);
   for (const i in uniqDates) {
     let someDate = ReversToValidString(uniqDates[i]);
-    console.log('???',someDate);
+    //console.log('???',someDate);
     someDate= someDate.split('-');
-    someDate = new Date(someDate[0],someDate[1],someDate[2])
-    console.log('???',someDate);
-
+    //console.log('somedate -->',parseInt(someDate[1]))
+    someDate = new Date(someDate[0],parseInt(someDate[1])-1,someDate[2])
+    //console.log('???',someDate);
+   // console.log('the result from the condition -->',isTodayGreaterThanDate(someDate))
     if (isTodayGreaterThanDate(someDate)) {
       console.log('for skip past dates (im in) -->',isTodayGreaterThanDate(someDate),someDate);
       continue;
@@ -416,6 +420,7 @@ const RenderTableM=()=>{
     <tr>
         <th>שם החייל</th>
         <th>מחלקה</th>
+        <th>תפקיד</th>
         <th>משימה אחרונה</th>
         <th>ממתי עד מתי</th>
         <th>ניקוד</th>
@@ -444,6 +449,7 @@ const RenderTableM=()=>{
     str+=`<tr id ="${R.personalNum}">
     <td style="font-size:22px;">${R.fullName}</td>
     <td>${R.class1}</td>
+    <td>${R.title}</td>
     <td>${R.lastM.Name==''?'אין':R.lastM.Name}</td>
     <td>${dateString}</td>
     <td>${res}</td>
@@ -460,6 +466,7 @@ const RenderTableM=()=>{
     <tr>
     <th>שם החייל</th>
     <th>מחלקה</th>
+    <th>תפקיד</th>
     <th>משימה אחרונה</th>
     <th>ממתי עד מתי</th>
     <th>ניקוד</th>
@@ -480,7 +487,7 @@ const RenderTableM=()=>{
   document.getElementById('missionTitle').innerHTML = missionTitleString;
   document.getElementById('SolPH').innerHTML = str;
   new DataTable('#DB-Table2',{
-    order: [[4, 'desc']]
+    order: [[5, 'desc']]
   });
   $('#SolDBHolder').fadeIn();
   document.getElementById('SolDBHolder').scrollIntoView({ behavior: "smooth", block: "start" });
@@ -495,6 +502,21 @@ const RenderTableM=()=>{
   const ThisSol = findObjectByAttribute(SOLIDERS,'personalNum',_CURRENT_SOLIDER_TARGET_MISSION);
   const ThisMission = findObjectByAttribute(MISSIONS,'key',_CURRENT_MISSION_ID);
   console.log('mission:',ThisMission,' Sol:',ThisSol);
+  ThisSol.lastM = ThisMission;
+  if (ThisMission.Team == undefined) {
+    ThisMission.Team = [];
+    ThisMission.Team.push({name:ThisSol.fullName,personalNum:ThisSol.personalNum});
+  }
+  else {
+    ThisMission.Team.push({name:ThisSol.fullName,personalNum:ThisSol.personalNum});
+  }
+
+  updateObjectInArray(MISSIONS,'key',ThisMission.key,ThisMission);
+  updateObjectInArray(SOLIDERS,'personalNum',ThisSol.personalNum,ThisSol);
+  Save2Once('Missions',MISSIONS);
+  Save2Once('Miluim_new',SOLIDERS);
+
+  //console.log('mission:',ThisMission,' Sol:',ThisSol);
 
   //new idea to implment the missin in the sol.lastM
   // and implement the solider in the team. becarful with command and regular solider ! 
@@ -685,7 +707,7 @@ function ReversToValidString(inputDate) {
   var parts = inputDate.split('/');
   
   // Rearrange the parts to form the desired format (year-month-day)
-  var formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
+  var formattedDate = parts[2] + '-' + parts[1] + '-' + parseInt(parts[0]);
   
   return formattedDate;
 }
@@ -705,6 +727,20 @@ function updateObjectProperty(arrayOfObjects, keyName, keyValue, propertyToUpdat
   
   // Optionally, you can return the modified array of objects
   return arrayOfObjects;
+}
+
+function updateObjectInArray(arr, key, value, newObject) {
+  // Find the index of the object with the given key-value pair
+  const index = arr.findIndex(obj => obj[key] === value);
+
+  // If the index is found, update the object
+  if (index !== -1) {
+      arr[index] = { ...arr[index], ...newObject };
+  } else {
+      console.error("Object with specified key-value pair not found");
+  }
+
+  return arr;
 }
 
 //remove object by key and return the new array
@@ -734,17 +770,20 @@ function isTodayGreaterThanDate(compareDate) {
   var currentDay = currentDate.getDate();
 
   // Extract year, month, and day parts from the compareDate
+  //console.log('compareDate',compareDate)
   var compareYear = compareDate.getFullYear();
   var compareMonth = compareDate.getMonth() + 1; // Month is zero-based, so we add 1
   var compareDay = compareDate.getDate();
 
   // Compare the year, month, and day parts
+  //console.log('Test this -->',compareYear,compareMonth,compareDay,'today-->',currentYear,currentMonth,currentDay)
   if (currentYear > compareYear) {
       return true;
   } else if (currentYear === compareYear) {
       if (currentMonth > compareMonth) {
           return true;
       } else if (currentMonth === compareMonth) {
+        //console.log('currentDay ',currentDay,' compareDay ',compareDay)
           return currentDay > compareDay;
       }
   }
